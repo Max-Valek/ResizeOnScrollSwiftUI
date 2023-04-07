@@ -57,6 +57,7 @@ struct Home: View {
                             GeometryReader { item in
                                 
                                 AlbumView(album: album)
+                                    .scaleEffect(scaleValue(mainFrame: mainView.frame(in: .global).minY, minY: item.frame(in: .global).minY))
                                 
                             }
                             // default frame height
@@ -73,6 +74,28 @@ struct Home: View {
         }
         .background(Color.black.opacity(0.06).edgesIgnoringSafeArea(.all))
         .edgesIgnoringSafeArea(.top)
+    }
+    
+    // simple calculation for scaling effect
+    
+    func scaleValue(mainFrame: CGFloat, minY: CGFloat) -> CGFloat {
+        
+        // reducing top padding for vstack
+        
+        let scale = (minY - 25) / mainFrame
+        
+//        print(scale)
+        
+        // return scaling value to album view if its less than 1
+        if scale > 1 {
+            
+            return 1
+            
+        } else {
+            
+            return scale
+            
+        }
     }
 }
 
